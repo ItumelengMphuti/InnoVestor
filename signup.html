@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InnoVestor Connect - Sign Up</title>
+    <link rel="stylesheet" href="styles/signup.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">InnoVestor Connect</div>
+            <ul>
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about_us">About Us</a></li>
+                <li><a href="index.html#startups">Startups</a></li>
+                <li><a href="index.html#investors">Investors</a></li>
+                <li><a href="index.html#mentors">Mentors</a></li>
+                <li><a href="index.html#resources">Resources</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button class="login-btn">Login</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="signup">
+            <div class="signup-container">
+                <h1>Create an Account</h1>
+                <p>Select your user type to sign up:</p>
+
+                <div class="signup-options">
+                    <button class="signup-option-btn" onclick="showSignupForm('mentor')">Mentor Signup</button>
+                    <button class="signup-option-btn" onclick="showSignupForm('investor')">Investor Signup</button>
+                    <button class="signup-option-btn" onclick="showSignupForm('startup')">Startup Signup</button>
+                </div>
+
+                <!-- Mentor Signup Form -->
+                <div id="mentor-signup" class="signup-form" style="display: none;">
+                    <h2>Mentor Signup</h2>
+                    <form action="/mentor_signup" method="POST">
+                        <input type="text" name="full_name" placeholder="Full Name" required>
+                        <input type="email" name="email" placeholder="Email" required>
+                        <input type="password" name="password" placeholder="Password" required>
+                        <input type="text" name="expertise" placeholder="Expertise" required>
+                        <button type="submit" class="cta-btn">Sign Up</button>
+                    </form>
+                </div>
+
+                <!-- Investor Signup Form -->
+                <div id="investor-signup" class="signup-form" style="display: none;">
+                    <h2>Investor Signup</h2>
+                    <form action="/investor_signup" method="POST">
+                        <input type="text" name="full_name" placeholder="Full Name" required>
+                        <input type="email" name="email" placeholder="Email" required>
+                        <input type="password" name="password" placeholder="Password" required>
+                        <input type="text" name="investment_focus" placeholder="Investment Focus" required>
+                        <button type="submit" class="cta-btn">Sign Up</button>
+                    </form>
+                </div>
+
+                <!-- Startup Signup Form -->
+                <div id="startup-signup" class="signup-form" style="display: none;">
+                    <h2>Startup Signup</h2>
+                    <form action="/startup_signup" method="POST">
+                        <input type="text" name="startup_name" placeholder="Startup Name" required>
+                        <input type="email" name="email" placeholder="Email" required>
+                        <input type="password" name="password" placeholder="Password" required>
+                        <input type="text" name="industry" placeholder="Industry" required>
+                        <button type="submit" class="cta-btn">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 InnoVestor Connect. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function showSignupForm(userType) {
+            document.getElementById('mentor-signup').style.display = 'none';
+            document.getElementById('investor-signup').style.display = 'none';
+            document.getElementById('startup-signup').style.display = 'none';
+
+            if (userType === 'mentor') {
+                document.getElementById('mentor-signup').style.display = 'block';
+            } else if (userType === 'investor') {
+                document.getElementById('investor-signup').style.display = 'block';
+            } else if (userType === 'startup') {
+                document.getElementById('startup-signup').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
