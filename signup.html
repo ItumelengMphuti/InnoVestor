@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Startup Sign-Up</title>
+    <title>InnoVestor Connect - Sign Up</title>
     <link rel="stylesheet" href="styles/signup.css">
 </head>
 <body>
@@ -11,63 +11,219 @@
         <nav>
             <div class="logo">InnoVestor Connect</div>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about_us.html">About Us</a></li>
-                <li><a href="#startups">Startups</a></li>
-                <li><a href="#investors">Investors</a></li>
-                <li><a href="#mentors">Mentors</a></li>
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about_us">About Us</a></li>
+                <li><a href="index.html#startups">Startups</a></li>
+                <li><a href="index.html#investors">Investors</a></li>
+                <li><a href="index.html#mentors">Mentors</a></li>
+                <li><a href="index.html#resources">Resources</a></li>
             </ul>
             <div class="auth-buttons">
-                <button class="login-btn">Login</button>
-                <button class="signup-btn">Sign Up</button>
+                <a href="login_form.html"><button class="login-btn">Login</button></a>
             </div>
         </nav>
     </header>
 
-    <section id="signup">
-        <div class="signup-container">
-            <h1>Startup Sign-Up</h1>
-            <p>Join InnoVestor Connect and take your startup to the next level.</p>
+    <main>
+        <section id="signup">
+            <div class="signup-container">
+                <h1>Sign Up for InnoVestor Connect</h1>
+                <p>Select your user type to sign up:</p>
 
-            <div class="signup-form">
-                <form id="startup-signup-form" action="submit_form.php" method="POST" enctype="multipart/form-data">
-                    <!-- Basic Information Section -->
-                    <h2>Basic Information</h2>
-                    <input type="text" id="name" name="name" placeholder="Full Name" required>
-                    <input type="email" id="email" name="email" placeholder="Email" required>
-                    <input type="password" id="password" name="password" placeholder="Password" required>
-                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required>
+                <div class="signup-options">
+                    <button class="signup-option-btn" onclick="showSignupForm('startup')">Startup Sign Up</button>
+                    <button class="signup-option-btn" onclick="showSignupForm('mentor')">Mentor Sign Up</button>
+                    <button class="signup-option-btn" onclick="showSignupForm('investor')">Investor Sign Up</button>
+                </div>
 
-                    <!-- Company Details Section -->
-                    <h2>Company Details</h2>
-                    <input type="text" id="company-name" name="company-name" placeholder="Company Name" required>
-                    <input type="text" id="industry" name="industry" placeholder="Industry" required>
-                    <label for="pitch-deck">Pitch Deck (PDF)</label>
-                    <input type="file" id="pitch-deck" name="pitch-deck" accept=".pdf" required>
+                <!-- Startup Sign Up Form -->
+                <div id="startup-signup" class="signup-form" style="display: none;">
+                    <h2>Startup Sign Up</h2>
+                    <h3>Basic Information</h3>
+                    <form id="startup-signup-form" action="/investor_dashboard" method="POST" enctype="multipart/form-data">
+                        <input type="text" name="name" placeholder="Startup Name" required>
+                        <input type="text" name="foundername" placeholder="Founder(s)" required>
+                        <input type="email" name="email" placeholder="Email" required>
+                        <input type="password" id="password" name="password" placeholder="Password" required>
+                        <input type="password" id="confirm-password" name="cpassword" placeholder="Confirm Password" required>
+                        <label>Profile Picture: <input type="file" id="profile-pic" name="profile_picture" accept="image/*"></label>
+                    </form>
+                    <hr>
+                    <h3>Company Details</h3>
+                    <form action="/investor_dashboard" method="POST" enctype="multipart/form-data">
+                        <label for="industry">Choose your industry:</label>
+                        <select id="industry" name="industry" required>
+                            <option value="">-- Select Industry --</option>
+                            <option value="">-- Select Industry --</option>
+                            <option value="AI">Artificial Intelligence (AI)</option>
+                            <option value="FinTech">FinTech</option>
+                            <option value="EdTech">EdTech</option>
+                            <option value="HealthTech">HealthTech</option>
+                            <option value="CleanTech">CleanTech</option>
+                            <option value="AgriTech">AgriTech</option>
+                            <option value="Cybersecurity">Cybersecurity</option>
+                            <option value="eCommerce">eCommerce</option>
+                            <option value="SaaS">Software as a Service (SaaS)</option>
+                            <option value="Biotechnology">Biotechnology</option>
+                            <option value="PropTech">PropTech</option>
+                            <option value="Blockchain">Blockchain & Cryptocurrency</option>
+                            <option value="VR_AR">VR/AR (Virtual & Augmented Reality)</option>
+                            <option value="IoT">Internet of Things (IoT)</option>
+                            <option value="MobilityTech">MobilityTech</option>
+                            <option value="Gaming_Entertainment">Gaming & Entertainment</option>
+                            <option value="MediaTech">MediaTech</option>
+                            <option value="LegalTech">LegalTech</option>
+                            <option value="AdTech">AdTech</option>
+                            <option value="Robotics">Robotics</option>
+                        </select>
 
-                    <!-- Financial Information Section -->
-                    <h2>Financial Information</h2>
-                    <input type="number" id="funding-needs" name="funding-needs" placeholder="Funding Needs (USD)" required>
-                    <input type="number" id="current-revenue" name="current-revenue" placeholder="Current Revenue (USD)" required>
-                    <input type="number" id="valuation" name="valuation" placeholder="Company Valuation (USD)" required>
+                        <label for="location-1">Select Your Location:</label>
+                        <input type="text" id="location-1" name="location-1" placeholder="Enter your location" required>
+                        <input type="date" name="datefounded" required>
+                        
+                        <label for="stage">Choose your startup stage:</label>
+                        <select id="stage" name="stage" required>
+                            <option value="">-- Select Stage --</option>
+                            <option value="Idea">Idea Stage</option>
+                            <option value="Pre-Seed">Pre-Seed</option>
+                            <option value="Seed">Seed Stage</option>
+                            <option value="Early">Early Stage (Series A)</option>
+                            <option value="Growth">Growth Stage (Series B, C, etc.)</option>
+                            <option value="Expansion">Expansion</option>
+                            <option value="Mature">Mature Stage</option>
+                            <option value="Exit">Exit Stage</option>
+                        </select>
 
-                    <!-- Profile Section -->
-                    <h2>Profile</h2>
-                    <label for="profile-pic">Profile Picture</label>
-                    <input type="file" id="profile-pic" name="profile-pic" accept="image/*" required>
-                    <textarea id="bio" name="bio" placeholder="Company Bio" rows="4" required></textarea>
+                        <input type="number" name="number" placeholder="Number of employees" required>
+                        <textarea name="mission" placeholder="Mission Statement" required></textarea>
+                        <label>Pitch Deck: <input type="file" id="pitch-deck" name="pitch_deck" accept="application/pdf" required></label>
+                    </form>
+                    <hr>
+                    <h3>Financial Information</h3>
+                    <label for="financial_stage">Financial Stage:</label>
+                    <select id="financial_stage" name="financial_stage" required>
+                        <option value="Pre-Revenue">Pre-Revenue</option>
+                        <option value="Early-Revenue">Early-Revenue</option>
+                        <option value="Profit-Making">Profit-Making</option>
+                        <option value="Break-Even">Break-Even</option>
+                        <option value="Scaling">Scaling</option>
+                    </select>
+                    <label for="funding_amount">Amount of Funding Sought (ZAR):</label>
+                    <input type="range" id="funding_amount" name="funding_amount" min="50000" max="10000000" step="50000" oninput="amountOutput.value = funding_amount.value">
+                    <output name="amountOutput" id="amountOutput">500000</output> ZAR
+                    <h3>Startup Profile</h3>
+                    <p>Please briefly answer the questions below.</p>
+                    <label for="description">Describe your startup:</label>
+                    <textarea id="description" name="description" rows="8" placeholder="Write a brief description about your startup..." required></textarea>
+                    <label>
+                        <input type="checkbox" name="terms" required>
+                        I agree to the <a href="terms_andco.html" target="_blank">Terms and Conditions</a>
+                    </label>
+                    <button type="submit" class="cta-btn">Sign Up</button>
+                </div>
 
-                    <button type="submit">Sign Up</button>
-                </form> 
+                <!-- Investor Sign Up Form -->
+                <div id="investor-signup" class="signup-form" style="display: none;">
+                    <h2>Investor Sign Up</h2>
+                    <h3>Basic Information</h3>
+                    <form action="/investor_dashboard" method="POST" enctype="multipart/form-data">
+                        <input type="text" name="name" placeholder="Full Name" required>
+                        <input type="email" name="email" placeholder="Email" required>
+                        <input type="password" name="password" placeholder="Password" required>
+                        <input type="password" name="cpassword" placeholder="Confirm Password" required>
+                      
+                    </form>
+                    <h3>Company/Organization Information</h3>
+                    <form action="/investor_dashboard" method="POST" enctype="multipart/form-data">
+                        <input type="text" name="compname" placeholder="Company Name" required>
+                        <input type="url" name="site" placeholder="Website" required>
+                        <label>Profile Picture: <input type="file" name="profile_picture" accept="image/*"></label>
+                    </form>
+                    <h3>Experience and Background</h3>
+                    <form action="/investor_dashboard" method="POST" enctype="multipart/form-data">
+                        <input type="number" name="years" placeholder="Years of Investing Experience" required>
+                        <input type="text" name="companies" placeholder="Portfolio Companies" required>
+                        <label>
+                            <input type="checkbox" name="terms" required>
+                            I agree to the <a href="terms_andco.html" target="_blank">Terms and Conditions</a>
+                        </label>
+                        <button type="submit" class="cta-btn">Sign Up</button>
+                    </form>
+                </div>
+
+                <!-- Mentor Sign Up Form -->
+                <div id="mentor-signup" class="signup-form" style="display: none;">
+                    <h2>Mentor Sign Up</h2>
+                    <form action="/mentor_dashboard" method="POST" enctype="multipart/form-data">
+                        <h3>Basic Information</h3>
+                        <input type="text" name="name" placeholder="Full Name" required>
+                        <input type="email" name="email" placeholder="Email" required>
+                        <input type="password" name="password" placeholder="Password" required>
+                        <input type="password" name="cpassword" placeholder="Confirm Password" required>
+                        <label>Profile Picture: <input type="file" name="profile_picture" accept="image/*"></label>
+
+                        <h3>Professional Details</h3>
+                        <input type="text" name="company_name" placeholder="Company Name" required>
+                        <input type="text" name="position" placeholder="Current Position" required>
+                        <input type="url" name="linkedin" placeholder="LinkedIn Profile" required>
+
+                        <h3>Area of Expertise</h3>
+                        <label for="expertise_industry">Choose your industry focus:</label>
+                        <select id="expertise_industry" name="industry" multiple required>
+                            <option value="AI">Artificial Intelligence (AI)</option>
+                            <option value="FinTech">FinTech</option>
+                            <option value="EdTech">EdTech</option>
+                            <option value="HealthTech">HealthTech</option>
+                            <option value="CleanTech">CleanTech</option>
+                            <option value="AgriTech">AgriTech</option>
+                            <option value="Cybersecurity">Cybersecurity</option>
+                            <option value="eCommerce">eCommerce</option>
+                            <option value="SaaS">Software as a Service (SaaS)</option>
+                            <option value="Biotechnology">Biotechnology</option>
+                            <option value="PropTech">PropTech</option>
+                            <option value="Blockchain">Blockchain & Cryptocurrency</option>
+                            <option value="VR_AR">VR/AR (Virtual & Augmented Reality)</option>
+                            <option value="IoT">Internet of Things (IoT)</option>
+                            <option value="MobilityTech">MobilityTech</option>
+                            <option value="Gaming_Entertainment">Gaming & Entertainment</option>
+                            <option value="MediaTech">MediaTech</option>
+                            <option value="LegalTech">LegalTech</option>
+                            <option value="AdTech">AdTech</option>
+                            <option value="Robotics">Robotics</option>
+                        </select>
+                        <input type="text" name="expertise" placeholder="Functional Expertise" required>
+                        <input type="text" name="experience" placeholder="Mentorship Experience" required>
+
+                        <h3>Mentorship Preference</h3>
+                        <input type="text" name="availability" placeholder="What is your availability..." required>
+                        <input type="text" name="preferred_stage" placeholder="Preferred Stage of Startup" required>
+                        <label for="mentorship">Mentorship Format:</label>
+                        <select id="mentorship" name="mentorship" required>
+                            <option value="">-- Mentorship Format --</option>
+                            <option value="oneonone">One-on-one (Virtual)</option>
+                            <option value="group">Group (Virtual)</option>
+                            <option value="public">Speaking at Events</option>
+                        </select>
+                        <label for="location-2">Your Location Preference:</label>
+                        <input type="text" id="location-2" name="location-2" placeholder="Enter your prefered location" required>
+                        <br>
+                        <label>
+                            <input type="checkbox" name="terms" required>
+                            I agree to the <a href="terms_andco.html" target="_blank">Terms and Conditions</a>
+                        </label>
+                        <button type="submit" class="cta-btn">Sign Up</button>
+                    </form>
+                </div>
             </div>
-        </div>
-    </section>
-
+        </section>
+    </main>
+    
     <footer>
         <p>&copy; 2024 InnoVestor Connect. All rights reserved.</p>
         <p>This page was built by Itumeleng M &#10084;</p>
-    </footer
+    </footer>
 
-    <script src="script/signup.js"></script>
+<script src="script/signup.js"></script>
+
 </body>
 </html>

@@ -1,3 +1,4 @@
+// Validate signup form on submission
 document.getElementById('startup-signup-form').addEventListener('submit', function (event) {
     // Validate password match
     const password = document.getElementById('password').value;
@@ -25,3 +26,33 @@ document.getElementById('startup-signup-form').addEventListener('submit', functi
         event.preventDefault(); // Stop form submission
     }
 });
+//checkbox 
+function openTermsModal() {
+    document.getElementById('terms-modal').style.display = 'block';
+}
+
+function closeTermsModal() {
+    document.getElementById('terms-modal').style.display = 'none';
+}
+
+
+// Function to display the value of the range slider dynamically
+document.getElementById('funding_amount').addEventListener('input', function() {
+    document.getElementById('amountOutput').value = this.value;
+});
+
+// Function to show the selected signup form and hide others
+function showSignupForm(userType) {
+    // Hide all signup forms
+    const forms = document.querySelectorAll('.signup-form');
+    forms.forEach(form => {
+        form.style.display = 'none';
+    });
+
+    // Show the selected signup form
+    const selectedForm = document.getElementById(`${userType}-signup`);
+    if (selectedForm) {
+        selectedForm.style.display = 'block';
+    }
+}
+
