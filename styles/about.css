@@ -1,0 +1,128 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
+    padding: 0 20px;
+}
+
+/* Header and Navigation */
+header {
+    background-color: #1a1a2e;
+    color: #fff;
+    padding: 20px 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ffcc00;
+    margin-left: 20px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #ffcc00;
+}
+
+.auth-buttons {
+    margin-right: 20px;
+}
+
+.auth-buttons a {
+    text-decoration: none;
+}
+
+.login-btn, .signup-btn {
+    background-color: #ffcc00;
+    color: #1a1a2e;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover, .signup-btn:hover {
+    background-color: #ffd633;
+}
+
+/* About Us Page */
+h1 {
+    font-size: 2.5em;
+    color: #1a1a2e;
+    margin-top: 40px;
+    text-align: center;
+}
+
+p {
+    font-size: 1.1em;
+    color: #555;
+    margin: 20px 0;
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+    }
+
+    nav ul {
+        margin: 1rem 0;
+    }
+
+    .auth-buttons {
+        margin-top: 1rem;
+    }
+
+    #hero h1 {
+        font-size: 2rem;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+}

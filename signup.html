@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InnoVestor Connect - Sign Up</title>
+    <title>Startup Sign-Up</title>
     <link rel="stylesheet" href="styles/signup.css">
 </head>
 <body>
@@ -11,88 +11,63 @@
         <nav>
             <div class="logo">InnoVestor Connect</div>
             <ul>
-                <li><a href="index.html#home">Home</a></li>
-                <li><a href="index.html#about_us">About Us</a></li>
-                <li><a href="index.html#startups">Startups</a></li>
-                <li><a href="index.html#investors">Investors</a></li>
-                <li><a href="index.html#mentors">Mentors</a></li>
-                <li><a href="index.html#resources">Resources</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about_us.html">About Us</a></li>
+                <li><a href="#startups">Startups</a></li>
+                <li><a href="#investors">Investors</a></li>
+                <li><a href="#mentors">Mentors</a></li>
             </ul>
             <div class="auth-buttons">
                 <button class="login-btn">Login</button>
+                <button class="signup-btn">Sign Up</button>
             </div>
         </nav>
     </header>
 
-    <main>
-        <section id="signup">
-            <div class="signup-container">
-                <h1>Create an Account</h1>
-                <p>Select your user type to sign up:</p>
+    <section id="signup">
+        <div class="signup-container">
+            <h1>Startup Sign-Up</h1>
+            <p>Join InnoVestor Connect and take your startup to the next level.</p>
 
-                <div class="signup-options">
-                    <button class="signup-option-btn" onclick="showSignupForm('mentor')">Mentor Signup</button>
-                    <button class="signup-option-btn" onclick="showSignupForm('investor')">Investor Signup</button>
-                    <button class="signup-option-btn" onclick="showSignupForm('startup')">Startup Signup</button>
-                </div>
+            <div class="signup-form">
+                <form id="startup-signup-form" action="submit_form.php" method="POST" enctype="multipart/form-data">
+                    <!-- Basic Information Section -->
+                    <h2>Basic Information</h2>
+                    <input type="text" id="name" name="name" placeholder="Full Name" required>
+                    <input type="email" id="email" name="email" placeholder="Email" required>
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required>
 
-                <!-- Mentor Signup Form -->
-                <div id="mentor-signup" class="signup-form" style="display: none;">
-                    <h2>Mentor Signup</h2>
-                    <form action="/mentor_signup" method="POST">
-                        <input type="text" name="full_name" placeholder="Full Name" required>
-                        <input type="email" name="email" placeholder="Email" required>
-                        <input type="password" name="password" placeholder="Password" required>
-                        <input type="text" name="expertise" placeholder="Expertise" required>
-                        <button type="submit" class="cta-btn">Sign Up</button>
-                    </form>
-                </div>
+                    <!-- Company Details Section -->
+                    <h2>Company Details</h2>
+                    <input type="text" id="company-name" name="company-name" placeholder="Company Name" required>
+                    <input type="text" id="industry" name="industry" placeholder="Industry" required>
+                    <label for="pitch-deck">Pitch Deck (PDF)</label>
+                    <input type="file" id="pitch-deck" name="pitch-deck" accept=".pdf" required>
 
-                <!-- Investor Signup Form -->
-                <div id="investor-signup" class="signup-form" style="display: none;">
-                    <h2>Investor Signup</h2>
-                    <form action="/investor_signup" method="POST">
-                        <input type="text" name="full_name" placeholder="Full Name" required>
-                        <input type="email" name="email" placeholder="Email" required>
-                        <input type="password" name="password" placeholder="Password" required>
-                        <input type="text" name="investment_focus" placeholder="Investment Focus" required>
-                        <button type="submit" class="cta-btn">Sign Up</button>
-                    </form>
-                </div>
+                    <!-- Financial Information Section -->
+                    <h2>Financial Information</h2>
+                    <input type="number" id="funding-needs" name="funding-needs" placeholder="Funding Needs (USD)" required>
+                    <input type="number" id="current-revenue" name="current-revenue" placeholder="Current Revenue (USD)" required>
+                    <input type="number" id="valuation" name="valuation" placeholder="Company Valuation (USD)" required>
 
-                <!-- Startup Signup Form -->
-                <div id="startup-signup" class="signup-form" style="display: none;">
-                    <h2>Startup Signup</h2>
-                    <form action="/startup_signup" method="POST">
-                        <input type="text" name="startup_name" placeholder="Startup Name" required>
-                        <input type="email" name="email" placeholder="Email" required>
-                        <input type="password" name="password" placeholder="Password" required>
-                        <input type="text" name="industry" placeholder="Industry" required>
-                        <button type="submit" class="cta-btn">Sign Up</button>
-                    </form>
-                </div>
+                    <!-- Profile Section -->
+                    <h2>Profile</h2>
+                    <label for="profile-pic">Profile Picture</label>
+                    <input type="file" id="profile-pic" name="profile-pic" accept="image/*" required>
+                    <textarea id="bio" name="bio" placeholder="Company Bio" rows="4" required></textarea>
+
+                    <button type="submit">Sign Up</button>
+                </form> 
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
     <footer>
         <p>&copy; 2024 InnoVestor Connect. All rights reserved.</p>
-    </footer>
+        <p>This page was built by Itumeleng M &#10084;</p>
+    </footer
 
-    <script>
-        function showSignupForm(userType) {
-            document.getElementById('mentor-signup').style.display = 'none';
-            document.getElementById('investor-signup').style.display = 'none';
-            document.getElementById('startup-signup').style.display = 'none';
-
-            if (userType === 'mentor') {
-                document.getElementById('mentor-signup').style.display = 'block';
-            } else if (userType === 'investor') {
-                document.getElementById('investor-signup').style.display = 'block';
-            } else if (userType === 'startup') {
-                document.getElementById('startup-signup').style.display = 'block';
-            }
-        }
-    </script>
+    <script src="script/signup.js"></script>
 </body>
 </html>
