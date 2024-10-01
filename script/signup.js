@@ -56,3 +56,50 @@ function showSignupForm(userType) {
     }
 }
 
+// Function to display the appropriate signup form
+function showSignupForm(userType) {
+    // Hide all signup forms
+    document.getElementById('mentor-signup').style.display = 'none';
+    document.getElementById('investor-signup').style.display = 'none';
+    document.getElementById('startup-signup').style.display = 'none';
+
+    // Show the selected signup form
+    document.getElementById(`${userType}-signup`).style.display = 'block';
+}
+
+// Function to handle signup
+async function handleSignup(event, userType) {
+    event.preventDefault();  // Prevent the default form submission
+
+    // Get form data based on the user type
+    const name = document.getElementById(`${userType}Name`).value;
+    const email = document.getElementById(`${userType}Email`).value;
+    const password = document.getElementById(`${userType}Password`).value;
+
+    try {
+        // Send signup request to the server
+        const response = await fetch(`/signup_${userType}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, email, password })
+        });
+
+        // Check if the signup was successful
+        if (response.ok) {
+            const data = await response.json();
+            console.log("Sign Up successful");
+            // Redirect to the appropriate dashboard after successful signup
+            window.location.href = `/${userType}_dashboard`;
+        } else {
+            // Handle error (e.g., show an error message)
+            alert('Signup failed. Please try again.');
+            console.log("SignUp failed")
+        }
+    } catch (error) {
+        console.error('Error signing up:', error);
+        alert('An error occurred. Please try again later.');
+    }
+}
+
