@@ -1,0 +1,119 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Header and Navigation */
+header {
+    background-color: #E5E5E5;
+    padding: 1rem;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+/* Remove underline and prevent color change on click */
+a.logo {
+    text-decoration: none;  
+    color: inherit;       
+}
+
+a.logo:visited {
+    color: inherit;  /* Prevents the color from changing after being clicked */
+}
+
+a.logo:hover {
+    text-decoration: none;  /* Ensures no underline on hover */
+}
+
+a.logo:focus, 
+a.logo:active {
+    text-decoration: none;  /* Ensures no underline on focus or active state */
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-right: 1rem;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+main {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #14213D;
+}
+
+p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.cta-buttons {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.cta-buttons a {
+    text-decoration: none;
+}
+
+.cta-buttons .login-btn, 
+.cta-buttons .signup-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0.5rem;
+}
+
+.login-btn {
+    background-color: #E5E5E5;
+    color: #333;
+}
+
+.signup-btn {
+    background-color: #FCA311;
+    color: #fff;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #333;
+    color: #fff;
+    margin-top: 2rem;
+}

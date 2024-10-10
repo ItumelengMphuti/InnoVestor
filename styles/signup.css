@@ -31,8 +31,27 @@ nav {
     margin: 0 auto;
 }
 
+/* Remove underline and prevent color change on click */
+a.logo {
+    text-decoration: none;  /* Removes the underline */
+    color: inherit;         /* Keeps the default text color */
+}
+
+a.logo:visited {
+    color: inherit;  /* Prevents the color from changing after being clicked */
+}
+
+a.logo:hover {
+    text-decoration: none;  /* Ensures no underline on hover */
+}
+
+a.logo:focus, 
+a.logo:active {
+    text-decoration: none;  /* Ensures no underline on focus or active state */
+}
+
 .logo {
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: bold;
     color: #333;
 }
