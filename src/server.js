@@ -161,6 +161,58 @@ app.get('/investor_dashboard', (req, res) => {
 app.get('/startup_dashboard', (req, res) => {
     res.send('Welcome to Startup Dashboard');
 });
+// API to fetch potential matches based on the industry
+app.get('/api/getMatches', (req, res) => {
+    const { userId, userType, industry } = req.query; // Get userId, userType, and industry from the request
+
+    let query = '';
+    if (userType === 'investor') {
+        query = `SELECT * FROM startups WHERE industry = ? AND id NOT IN (SELECT startup_id FROM matches WHERE investor_id = ?)`;
+    } else if (userType === 'startup') {
+        query = `SELECT * FROM investors WHERE industry = ? AND id NOT IN (SELECT investor_id FROM matches WHERE startup_id = ?)`;
+    }
+
+    connection.query(query, [industry, userId], (err, results) => {
+        if (err) return res.status(500).json({ error: 'Database error' });
+        res.json(results); // Send the list of potential matches
+    });
+});
+
+// API to handle like or pass action
+app.post('/api/handleMatchAction', (req, res) => {
+    const { matchId, action, userId, userType } = req.body;
+
+    if (action === 'like') {
+        const query = userType === 'investor'
+            ? `INSERT INTO matches (investor_id, startup_id) VALUES (?, ?)`
+            : `INSERT INTO matches (startup_id, investor_id) VALUES (?, ?)`;
+
+        connection.query(query, [userId, matchId], (err) => {
+            if (err) return res.status(500).json({ error: 'Database error' });
+            res.sendStatus(200);
+        });
+    } else {
+        // No DB insertion needed for "pass"
+        res.sendStatus(200);
+    }
+});
+
+// Get Startup Profile
+app.get('/api/profile/startup', (req, res) => {
+    const { id } = req.query; // Get the user ID from the query parameters
+    const query = 'SELECT * FROM startups WHERE id = ?';
+    
+    connection.query(query, [id], (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Database error' });
+        }
+        if (results.length === 0) {
+            return res.status(404).json({ message: 'Startup not found' });
+        }
+        res.json(results[0]); // Return the startup profile data
+    });
+});
+
 
 // START SERVER
 app.listen(port, () => {

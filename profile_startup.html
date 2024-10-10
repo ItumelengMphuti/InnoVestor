@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startup Profile</title>
+    <link rel="stylesheet" href="styles/startup_p.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>Startup Profile</h1>
+            <a href="dashboard.html">Back to Dashboard</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="profile">
+            <img id="profile-pic" src="" alt="Profile Picture">
+            <h2 id="startup-name"></h2>
+            <p><strong>Founder:</strong> <span id="founder-name"></span></p>
+            <p><strong>Industry:</strong> <span id="industry"></span></p>
+            <p><strong>Location:</strong> <span id="location"></span></p>
+            <p><strong>Date Founded:</strong> <span id="date-founded"></span></p>
+            <p><strong>Stage:</strong> <span id="stage"></span></p>
+            <p><strong>Employees:</strong> <span id="employees"></span></p>
+            <p><strong>Mission:</strong> <span id="mission"></span></p>
+            <p><strong>Funding Amount:</strong> <span id="funding-amount"></span></p>
+            <p><strong>Description:</strong> <span id="description"></span></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 InnoVestor Connect</p>
+    </footer>
+
+    <script>
+        // Fetch the startup profile data from the server
+        async function loadStartupProfile() {
+            const response = await fetch('/api/profile/startup?id=1'); // Assume user ID 1 for now
+            const profileData = await response.json();
+
+            // Populate the profile with the fetched data
+            document.getElementById('profile-pic').src = profileData.profile_picture;
+            document.getElementById('startup-name').textContent = profileData.name;
+            document.getElementById('founder-name').textContent = profileData.founder_name;
+            document.getElementById('industry').textContent = profileData.industry;
+            document.getElementById('location').textContent = profileData.location;
+            document.getElementById('date-founded').textContent = profileData.date_founded;
+            document.getElementById('stage').textContent = profileData.stage;
+            document.getElementById('employees').textContent = profileData.number_of_employees;
+            document.getElementById('mission').textContent = profileData.mission;
+            document.getElementById('funding-amount').textContent = profileData.funding_amount;
+            document.getElementById('description').textContent = profileData.description;
+        }
+
+        loadStartupProfile();
+    </script>
+</body>
+</html>
