@@ -97,8 +97,10 @@ p {
     margin-right: auto;
 }
 
-/* Founders Section */
-/* Center the text for the Founders section */
+#about-us {
+    padding-bottom: 2rem;
+    
+}
 .founders-heading {
     text-align: center;
     margin-bottom: 2rem;
@@ -156,6 +158,9 @@ p {
     line-height: 1.5;
 }
 
+
+
+
 /* Responsive Styling for smaller screens */
 @media (max-width: 768px) {
     .founders {
@@ -169,13 +174,14 @@ p {
     }
 }
 
-
 /* Footer */
 footer {
     background-color: #333;
-    color: #fff;
     text-align: center;
     padding: 1rem;
+}
+footer p {
+    color: #fff;
 }
 
 /* Responsive Design */
