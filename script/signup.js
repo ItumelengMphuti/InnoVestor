@@ -17,7 +17,7 @@ document.getElementById('startup-signup-form').addEventListener('submit', functi
         event.preventDefault(); // Stop form submission
         return;
     }
-
+  
     // Validate profile picture (only allow image formats)
     const profilePic = document.getElementById('profile-pic').files[0];
     const allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif'];

@@ -55,7 +55,6 @@
                         <label for="industry">Choose your industry:</label>
                         <select id="industry" name="industry" required>
                             <option value="">-- Select Industry --</option>
-                            <option value="">-- Select Industry --</option>
                             <option value="AI">Artificial Intelligence (AI)</option>
                             <option value="FinTech">FinTech</option>
                             <option value="EdTech">EdTech</option>
@@ -77,11 +76,11 @@
                             <option value="AdTech">AdTech</option>
                             <option value="Robotics">Robotics</option>
                         </select>
-
+                        <br>
                         <label for="location-1">Select Your Location:</label>
                         <input type="text" id="location-1" name="location-1" placeholder="Enter your location" required>
+                        <label for="datefounded">Date founded:</label>
                         <input type="date" name="datefounded" required>
-                        
                         <label for="stage">Choose your startup stage:</label>
                         <select id="stage" name="stage" required>
                             <option value="">-- Select Stage --</option>
@@ -94,33 +93,32 @@
                             <option value="Mature">Mature Stage</option>
                             <option value="Exit">Exit Stage</option>
                         </select>
-
                         <input type="number" name="number" placeholder="Number of employees" required>
                         <textarea name="mission" placeholder="Mission Statement" required></textarea>
                         <label>Pitch Deck: <input type="file" id="pitch-deck" name="pitch_deck" accept="application/pdf" required></label>
                     </form>
                     <hr>
-                    <h3>Financial Information</h3>
-                    <label for="financial_stage">Financial Stage:</label>
-                    <select id="financial_stage" name="financial_stage" required>
-                        <option value="Pre-Revenue">Pre-Revenue</option>
-                        <option value="Early-Revenue">Early-Revenue</option>
-                        <option value="Profit-Making">Profit-Making</option>
-                        <option value="Break-Even">Break-Even</option>
-                        <option value="Scaling">Scaling</option>
-                    </select>
-                    <label for="funding_amount">Amount of Funding Sought (ZAR):</label>
-                    <input type="range" id="funding_amount" name="funding_amount" min="50000" max="10000000" step="50000" oninput="amountOutput.value = funding_amount.value">
-                    <output name="amountOutput" id="amountOutput">500000</output> ZAR
-                    <h3>Startup Profile</h3>
-                    <p>Please briefly answer the questions below.</p>
-                    <label for="description">Describe your startup:</label>
-                    <textarea id="description" name="description" rows="8" placeholder="Write a brief description about your startup..." required></textarea>
-                    <label>
-                        <input type="checkbox" name="terms" required>
-                        I agree to the <a href="terms_andco.html" target="_blank">Terms and Conditions</a>
-                    </label>
-                    <button type="submit" class="cta-btn">Sign Up</button>
+                    <hr>
+                <h3>Financial Information</h3>
+                <label for="financial_stage">Financial Stage:</label>
+                <select id="financial_stage" name="financial_stage" required>
+                    <option value="Pre-Revenue">Pre-Revenue</option>
+                    <option value="Early-Revenue">Early-Revenue</option>
+                    <option value="Profit-Making">Profit-Making</option>
+                    <option value="Break-Even">Break-Even</option>
+                    <option value="Scaling">Scaling</option>
+                </select>
+
+                <label for="funding_amount">Amount of Funding Sought (ZAR):</label>
+                <input type="range" id="funding_amount" name="funding_amount" min="50000" max="10000000" step="50000" oninput="amountOutput.value = funding_amount.value">
+                <output name="amountOutput" id="amountOutput">500000</output>
+
+                <label>
+                    <input type="checkbox" name="terms" required>
+                    I agree to the <a href="terms_andco.html" target="_blank">Terms and Conditions</a>
+                </label>
+                <br>
+                <button type="submit" class="cta-btn">Sign Up</button>
                 </div>
 
                 <!-- Investor Sign Up Form -->
