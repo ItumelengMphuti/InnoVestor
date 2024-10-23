@@ -115,35 +115,24 @@ h1 {
     margin-bottom: 1rem;
 }
 
-.profiles {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
-
-.profile-card {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 1rem;
-    margin: 1rem;
-    width: 250px;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.profile-img {
-    width: 100%;
-    height: auto;
+#profile img {
+    display: block;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
+    margin: 0 auto;
+    margin-bottom: 1rem;
 }
 
-.profile-card h3 {
-    margin: 1rem 0 0.5rem;
+#profile h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1rem;
 }
 
-.profile-card p {
-    font-size: 0.9rem;
+#profile p {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 /* Footer Styles */

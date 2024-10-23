@@ -4,18 +4,11 @@ const jwt = require('jsonwebtoken');
 const mysql = require('mysql2');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 3000;
-
-// MIDDLEWARE
-app.use(bodyParser.json());
-app.use(cors({
-    origin: 'http://127.0.0.1:5500', 
-    methods: 'GET,POST,PUT,DELETE',
-    allowedHeaders: 'Content-Type,Authorization'
-}));
 
 // MYSQL CONNECTION
 const connection = mysql.createConnection({
@@ -33,6 +26,14 @@ connection.connect((err) => {
     console.log('Connected to the database');
 });
 
+// MIDDLEWARE
+app.use(bodyParser.json());
+app.use(cors({
+    origin: 'http://127.0.0.1:5500',
+    methods: 'GET,POST,PUT,DELETE',
+    allowedHeaders: 'Content-Type,Authorization'
+}));
+
 // Helper function to generate JWT tokens
 function generateToken(user, role) {
     return jwt.sign({ id: user.id, role }, process.env.JWT_SECRET || 'secretkey', { expiresIn: '1h' });
@@ -45,11 +46,11 @@ app.post('/api/startups', async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
         const query = 'INSERT INTO startups (name, founder_name, email, password, profile_picture, industry, location, date_founded, stage, number_of_employees, mission, pitch_deck, financial_stage, funding_amount, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        
+
         const values = [name, founder_name, email, hashedPassword, profile_picture, industry, location, date_founded, stage, number_of_employees, mission, pitch_deck, financial_stage, funding_amount, description];
-        connection.query(query, values, (err, results) => {
+        connection.query(query, values, (err) => {
             if (err) {
-                return res.status(500).json({ error: 'Database error' });
+                return res.status(500).json({ error: 'Database error', details: err.message });
             }
             res.status(201).json({ message: 'Startup registered successfully!' });
         });
@@ -65,11 +66,11 @@ app.post('/api/investors', async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
         const query = 'INSERT INTO investors (name, email, password, profile_picture, company_name, website, years_of_experience, portfolio_companies) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-        
+
         const values = [name, email, hashedPassword, profile_picture, company_name, website, years_of_experience, portfolio_companies];
-        connection.query(query, values, (err, results) => {
+        connection.query(query, values, (err) => {
             if (err) {
-                return res.status(500).json({ error: 'Database error' });
+                return res.status(500).json({ error: 'Database error', details: err.message });
             }
             res.status(201).json({ message: 'Investor registered successfully!' });
         });
@@ -85,11 +86,11 @@ app.post('/api/mentors', async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
         const query = 'INSERT INTO mentors (name, email, password, profile_picture, company_name, position, linkedin, expertise, mentorship_availability, preferred_stage, mentorship_format, location_preference) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        
+
         const values = [name, email, hashedPassword, profile_picture, company_name, position, linkedin, expertise, mentorship_availability, preferred_stage, mentorship_format, location_preference];
-        connection.query(query, values, (err, results) => {
+        connection.query(query, values, (err) => {
             if (err) {
-                return res.status(500).json({ error: 'Database error' });
+                return res.status(500).json({ error: 'Database error', details: err.message });
             }
             res.status(201).json({ message: 'Mentor registered successfully!' });
         });
@@ -99,7 +100,7 @@ app.post('/api/mentors', async (req, res) => {
 });
 
 // Login Route for Mentors
-app.post('/login_mentor', async (req, res) => {
+app.post('/api/login/mentors', async (req, res) => {
     const { email, password } = req.body;
 
     connection.query('SELECT * FROM mentors WHERE email = ?', [email], async (err, results) => {
@@ -116,7 +117,7 @@ app.post('/login_mentor', async (req, res) => {
 });
 
 // Login Route for Investors
-app.post('/login_investor', async (req, res) => {
+app.post('/api/login/investors', async (req, res) => {
     const { email, password } = req.body;
 
     connection.query('SELECT * FROM investors WHERE email = ?', [email], async (err, results) => {
@@ -133,7 +134,7 @@ app.post('/login_investor', async (req, res) => {
 });
 
 // Login Route for Startups
-app.post('/login_startup', async (req, res) => {
+app.post('/api/login/startups', async (req, res) => {
     const { email, password } = req.body;
 
     connection.query('SELECT * FROM startups WHERE email = ?', [email], async (err, results) => {
@@ -149,18 +150,21 @@ app.post('/login_startup', async (req, res) => {
     });
 });
 
-// Dashboards
-app.get('/mentor_dashboard', (req, res) => {
-    res.send('Welcome to Mentor Dashboard');
-});
-
-app.get('/investor_dashboard', (req, res) => {
-    res.send('Welcome to Investor Dashboard');
-});
-
+// Serve the Startup Dashboard
 app.get('/startup_dashboard', (req, res) => {
-    res.send('Welcome to Startup Dashboard');
+    res.sendFile(path.join(__dirname, 'startup_dashboard.html'));
 });
+
+// Serve the Investor Dashboard
+app.get('/investor_dashboard', (req, res) => {
+    res.sendFile(path.join(__dirname, 'investor_dashboard.html'));
+});
+
+// Serve the Mentor Dashboard
+app.get('/mentor_dashboard', (req, res) => {
+    res.sendFile(path.join(__dirname, 'mentor_dashboard.html'));
+});
+
 // API to fetch potential matches based on the industry
 app.get('/api/getMatches', (req, res) => {
     const { userId, userType, industry } = req.query; // Get userId, userType, and industry from the request
@@ -197,24 +201,31 @@ app.post('/api/handleMatchAction', (req, res) => {
     }
 });
 
-// Get Startup Profile
-app.get('/api/profile/startup', (req, res) => {
-    const { id } = req.query; // Get the user ID from the query parameters
-    const query = 'SELECT * FROM startups WHERE id = ?';
-    
-    connection.query(query, [id], (err, results) => {
-        if (err) {
-            return res.status(500).json({ error: 'Database error' });
-        }
-        if (results.length === 0) {
-            return res.status(404).json({ message: 'Startup not found' });
-        }
-        res.json(results[0]); // Return the startup profile data
+// Get all startup profiles
+app.get('/api/startups', (req, res) => {
+    connection.query('SELECT * FROM startups', (err, results) => {
+        if (err) return res.status(500).json({ error: 'Database error' });
+        res.json(results);
     });
 });
 
+// Get all investor profiles
+app.get('/api/investors', (req, res) => {
+    connection.query('SELECT * FROM investors', (err, results) => {
+        if (err) return res.status(500).json({ error: 'Database error' });
+        res.json(results);
+    });
+});
 
-// START SERVER
+// Get all mentor profiles
+app.get('/api/mentors', (req, res) => {
+    connection.query('SELECT * FROM mentors', (err, results) => {
+        if (err) return res.status(500).json({ error: 'Database error' });
+        res.json(results);
+    });
+});
+
+// Start the server
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });

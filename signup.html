@@ -14,9 +14,9 @@
             </a>            <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about_us.html">About Us</a></li>
-                <li><a href="startUp.html">Startups</a></li>
-                <li><a href="investor.html">Investors</a></li>
-                <li><a href="mentors.html">Mentors</a></li>
+                <li><a href="startup_dashboard.html">Startups</a></li>
+                <li><a href="investor_dashboard.html">Investors</a></li>
+                <li><a href="mentors_dashboard.html">Mentors</a></li>
                 <li><a href="innohub.html">Innovation Hub</a></li>
             </ul>
             <div class="auth-buttons">
@@ -37,183 +37,398 @@
                     <button class="signup-option-btn" onclick="showSignupForm('investor')">Investor Sign Up</button>
                 </div>
 
-                <!-- Startup Sign Up Form -->
-                <div id="startup-signup" class="signup-form" style="display: none;">
-                    <h2>Startup Sign Up</h2>
-                    <h3>Basic Information</h3>
-                    <form id="startup-signup-form" action="/investor_dashboard" method="POST" enctype="multipart/form-data">
-                        <input type="text" name="name" placeholder="Startup Name" required>
-                        <input type="text" name="foundername" placeholder="Founder(s)" required>
-                        <input type="email" name="email" placeholder="Email" required>
-                        <input type="password" id="password" name="password" placeholder="Password" required>
-                        <input type="password" id="confirm-password" name="cpassword" placeholder="Confirm Password" required>
-                        <label>Profile Picture: <input type="file" id="profile-pic" name="profile_picture" accept="image/*"></label>
-                    </form>
-                    <hr>
-                    <h3>Company Details</h3>
-                    <form action="/investor_dashboard" method="POST" enctype="multipart/form-data">
-                        <label for="industry">Choose your industry:</label>
-                        <select id="industry" name="industry" required>
-                            <option value="">-- Select Industry --</option>
-                            <option value="AI">Artificial Intelligence (AI)</option>
-                            <option value="FinTech">FinTech</option>
-                            <option value="EdTech">EdTech</option>
-                            <option value="HealthTech">HealthTech</option>
-                            <option value="CleanTech">CleanTech</option>
-                            <option value="AgriTech">AgriTech</option>
-                            <option value="Cybersecurity">Cybersecurity</option>
-                            <option value="eCommerce">eCommerce</option>
-                            <option value="SaaS">Software as a Service (SaaS)</option>
-                            <option value="Biotechnology">Biotechnology</option>
-                            <option value="PropTech">PropTech</option>
-                            <option value="Blockchain">Blockchain & Cryptocurrency</option>
-                            <option value="VR_AR">VR/AR (Virtual & Augmented Reality)</option>
-                            <option value="IoT">Internet of Things (IoT)</option>
-                            <option value="MobilityTech">MobilityTech</option>
-                            <option value="Gaming_Entertainment">Gaming & Entertainment</option>
-                            <option value="MediaTech">MediaTech</option>
-                            <option value="LegalTech">LegalTech</option>
-                            <option value="AdTech">AdTech</option>
-                            <option value="Robotics">Robotics</option>
-                        </select>
-                        <br>
-                        <label for="location-1">Select Your Location:</label>
-                        <input type="text" id="location-1" name="location-1" placeholder="Enter your location" required>
-                        <label for="datefounded">Date founded:</label>
-                        <input type="date" name="datefounded" required>
-                        <label for="stage">Choose your startup stage:</label>
-                        <select id="stage" name="stage" required>
-                            <option value="">-- Select Stage --</option>
-                            <option value="Idea">Idea Stage</option>
-                            <option value="Pre-Seed">Pre-Seed</option>
-                            <option value="Seed">Seed Stage</option>
-                            <option value="Early">Early Stage (Series A)</option>
-                            <option value="Growth">Growth Stage (Series B, C, etc.)</option>
-                            <option value="Expansion">Expansion</option>
-                            <option value="Mature">Mature Stage</option>
-                            <option value="Exit">Exit Stage</option>
-                        </select>
-                        <input type="number" name="number" placeholder="Number of employees" required>
-                        <textarea name="mission" placeholder="Mission Statement" required></textarea>
-                        <label>Pitch Deck: <input type="file" id="pitch-deck" name="pitch_deck" accept="application/pdf" required></label>
-                    </form>
-                    <hr>
-                    <hr>
-                <h3>Financial Information</h3>
-                <label for="financial_stage">Financial Stage:</label>
-                <select id="financial_stage" name="financial_stage" required>
-                    <option value="Pre-Revenue">Pre-Revenue</option>
-                    <option value="Early-Revenue">Early-Revenue</option>
-                    <option value="Profit-Making">Profit-Making</option>
-                    <option value="Break-Even">Break-Even</option>
-                    <option value="Scaling">Scaling</option>
-                </select>
+            <!-- Startup Sign Up Form -->
+            <div id="startup-signup" class="signup-form" style="display: none;">
+                <h2>Startup Sign Up</h2>
+                <form id="startup-signup-form" onsubmit="handleSignup(event, 'startup')" enctype="multipart/form-data">
 
-                <label for="funding_amount">Amount of Funding Sought (ZAR):</label>
-                <input type="range" id="funding_amount" name="funding_amount" min="50000" max="10000000" step="50000" oninput="amountOutput.value = funding_amount.value">
-                <output name="amountOutput" id="amountOutput">500000</output>
-
-                <label>
-                    <input type="checkbox" name="terms" required>
-                    I agree to the <a href="terms_andco.html" target="_blank">Terms and Conditions</a>
-                </label>
-                <br>
-                <button type="submit" class="cta-btn">Sign Up</button>
-                </div>
-
-                <!-- Investor Sign Up Form -->
-                <div id="investor-signup" class="signup-form" style="display: none;">
-                    <h2>Investor Sign Up</h2>
-                    <h3>Basic Information</h3>
-                    <form action="/investor_dashboard" method="POST" enctype="multipart/form-data">
-                        <input type="text" name="name" placeholder="Full Name" required>
-                        <input type="email" name="email" placeholder="Email" required>
-                        <input type="password" name="password" placeholder="Password" required>
-                        <input type="password" name="cpassword" placeholder="Confirm Password" required>
-                    </form>
-                    <h3>Company/Organization Information</h3>
-                    <form action="/investor_dashboard" method="POST" enctype="multipart/form-data">
-                        <input type="text" name="compname" placeholder="Company Name" required>
-                        <input type="url" name="site" placeholder="Website" required>
-                        <label>Profile Picture: <input type="file" name="profile_picture" accept="image/*"></label>
-                    </form>
-                    <h3>Experience and Background</h3>
-                    <form action="/investor_dashboard" method="POST" enctype="multipart/form-data">
-                        <input type="number" name="years" placeholder="Years of Investing Experience" required>
-                        <input type="text" name="companies" placeholder="Portfolio Companies" required>
-                        <label>
-                            <input type="checkbox" name="terms" required>
-                            I agree to the <a href="terms_andco.html" target="_blank">Terms and Conditions</a>
-                        </label>
-                        <button type="submit" class="cta-btn">Sign Up</button>
-                    </form>
-                </div>
-
-                <!-- Mentor Sign Up Form -->
-                <div id="mentor-signup" class="signup-form" style="display: none;">
-                    <h2>Mentor Sign Up</h2>
-                    <form action="/mentor_dashboard" method="POST" enctype="multipart/form-data">
+                    <section class="form-section">
                         <h3>Basic Information</h3>
-                        <input type="text" name="name" placeholder="Full Name" required>
-                        <input type="email" name="email" placeholder="Email" required>
-                        <input type="password" name="password" placeholder="Password" required>
-                        <input type="password" name="cpassword" placeholder="Confirm Password" required>
-                        <label>Profile Picture: <input type="file" name="profile_picture" accept="image/*"></label>
+                        
+                        <div class="form-group">
+                            <label for="startup-name">Startup Name</label>
+                            <input type="text" id="startup-name" name="name" maxlength="100" required>
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="founder-name">Founder(s)</label>
+                            <input type="text" id="founder-name" name="foundername" maxlength="200" required>
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" maxlength="255" required>
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" 
+                                minlength="8" 
+                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                                required>
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm Password</label>
+                            <input type="password" id="confirm-password" name="cpassword" 
+                                minlength="8" 
+                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                required>
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="profile-pic">Profile Picture</label>
+                            <input type="file" id="profile-pic" name="profile_picture" 
+                                accept="image/png, image/jpeg, image/jpg"
+                                aria-describedby="profile-pic-help">
+                            <small id="profile-pic-help" class="form-text">Maximum file size: 5MB. Accepted formats: PNG, JPEG, JPG</small>
+                        </div>
+                    </section>
+    
+                    <section class="form-section">
+                        <h3>Company Details</h3>
+            
+                        <div class="form-group">
+                            <label for="industry">Choose your industry</label>
+                            <select id="industry" name="industry" required>
+                                <option value="">-- Select Industry --</option>
+                                <option value="AI">Artificial Intelligence (AI)</option>
+                                <option value="FinTech">FinTech</option>
+                                <option value="EdTech">EdTech</option>
+                                <option value="HealthTech">HealthTech</option>
+                                <option value="CleanTech">CleanTech</option>
+                                <option value="AgriTech">AgriTech</option>
+                                <option value="Cybersecurity">Cybersecurity</option>
+                                <option value="eCommerce">eCommerce</option>
+                                <option value="SaaS">Software as a Service (SaaS)</option>
+                                <option value="Biotechnology">Biotechnology</option>
+                                <option value="PropTech">PropTech</option>
+                                <option value="Blockchain">Blockchain & Cryptocurrency</option>
+                                <option value="VR_AR">VR/AR (Virtual & Augmented Reality)</option>
+                                <option value="IoT">Internet of Things (IoT)</option>
+                                <option value="MobilityTech">MobilityTech</option>
+                                <option value="Gaming_Entertainment">Gaming & Entertainment</option>
+                                <option value="MediaTech">MediaTech</option>
+                                <option value="LegalTech">LegalTech</option>
+                                <option value="AdTech">AdTech</option>
+                                <option value="Robotics">Robotics</option>
+                            </select>
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" id="location" name="location" required>
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="datefounded">Date founded</label>
+                            <input type="date" id="datefounded" name="datefounded" 
+                                max="2024-12-31" required>
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="stage">Startup stage</label>
+                            <select id="stage" name="stage" required>
+                                <option value="">-- Select Stage --</option>
+                                <option value="Idea">Idea Stage</option>
+                                <option value="Pre-Seed">Pre-Seed</option>
+                                <option value="Seed">Seed Stage</option>
+                                <option value="Early">Early Stage (Series A)</option>
+                                <option value="Growth">Growth Stage (Series B, C, etc.)</option>
+                                <option value="Expansion">Expansion</option>
+                                <option value="Mature">Mature Stage</option>
+                                <option value="Exit">Exit Stage</option>
+                            </select>
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="employee-count">Number of employees</label>
+                            <input type="number" id="employee-count" name="number" 
+                                min="1" max="10000" required>
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="mission">Mission Statement</label>
+                            <textarea id="mission" name="mission" 
+                                rows="4" maxlength="500" 
+                                aria-describedby="mission-help" required></textarea>
+                            <small id="mission-help" class="form-text">Maximum 500 characters</small>
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="pitch-deck">Pitch Deck</label>
+                            <input type="file" id="pitch-deck" name="pitch_deck" 
+                                accept="application/pdf"
+                                aria-describedby="pitch-deck-help" required>
+                            <small id="pitch-deck-help" class="form-text">Maximum file size: 10MB. PDF format only</small>
+                        </div>
+                    </section>
 
-                        <h3>Professional Details</h3>
-                        <input type="text" name="company_name" placeholder="Company Name" required>
-                        <input type="text" name="position" placeholder="Current Position" required>
-                        <input type="url" name="linkedin" placeholder="LinkedIn Profile" required>
-
-                        <h3>Area of Expertise</h3>
-                        <label for="expertise_industry">Choose your industry focus:</label>
-                        <select id="expertise_industry" name="industry" multiple required>
-                            <option value="AI">Artificial Intelligence (AI)</option>
-                            <option value="FinTech">FinTech</option>
-                            <option value="EdTech">EdTech</option>
-                            <option value="HealthTech">HealthTech</option>
-                            <option value="CleanTech">CleanTech</option>
-                            <option value="AgriTech">AgriTech</option>
-                            <option value="Cybersecurity">Cybersecurity</option>
-                            <option value="eCommerce">eCommerce</option>
-                            <option value="SaaS">Software as a Service (SaaS)</option>
-                            <option value="Biotechnology">Biotechnology</option>
-                            <option value="PropTech">PropTech</option>
-                            <option value="Blockchain">Blockchain & Cryptocurrency</option>
-                            <option value="VR_AR">VR/AR (Virtual & Augmented Reality)</option>
-                            <option value="IoT">Internet of Things (IoT)</option>
-                            <option value="MobilityTech">MobilityTech</option>
-                            <option value="Gaming_Entertainment">Gaming & Entertainment</option>
-                            <option value="MediaTech">MediaTech</option>
-                            <option value="LegalTech">LegalTech</option>
-                            <option value="AdTech">AdTech</option>
-                            <option value="Robotics">Robotics</option>
-                        </select>
-                        <input type="text" name="expertise" placeholder="Functional Expertise" required>
-                        <input type="text" name="experience" placeholder="Mentorship Experience" required>
-
-                        <h3>Mentorship Preference</h3>
-                        <input type="text" name="availability" placeholder="What is your availability..." required>
-                        <input type="text" name="preferred_stage" placeholder="Preferred Stage of Startup" required>
-                        <label for="mentorship">Mentorship Format:</label>
-                        <select id="mentorship" name="mentorship" required>
-                            <option value="">-- Mentorship Format --</option>
-                            <option value="oneonone">One-on-one (Virtual)</option>
-                            <option value="group">Group (Virtual)</option>
-                            <option value="public">Speaking at Events</option>
-                        </select>
-                        <label for="location-2">Your Location Preference:</label>
-                        <input type="text" id="location-2" name="location-2" placeholder="Enter your prefered location" required>
-                        <br>
-                        <label>
-                            <input type="checkbox" name="terms" required>
-                            I agree to the <a href="terms_andco.html" target="_blank">Terms and Conditions</a>
-                        </label>
+                    <section class="form-section">
+                        <h3>Financial Information</h3>
+            
+                        <div class="form-group">
+                            <label for="financial_stage">Financial Stage</label>
+                            <select id="financial_stage" name="financial_stage" required>
+                                <option value="">-- Select Financial Stage --</option>
+                                <option value="Pre-Revenue">Pre-Revenue</option>
+                                <option value="Early-Revenue">Early-Revenue</option>
+                                <option value="Profit-Making">Profit-Making</option>
+                                <option value="Break-Even">Break-Even</option>
+                                <option value="Scaling">Scaling</option>
+                            </select>
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="funding_amount">Amount of Funding Sought (ZAR)</label>
+                            <div class="range-container">
+                                <input type="range" id="funding_amount" name="funding_amount" 
+                                    min="50000" max="10000000" step="50000" 
+                                    oninput="amountOutput.value = new Intl.NumberFormat('en-ZA').format(this.value)">
+                                <output name="amountOutput" id="amountOutput" for="funding_amount">500,000</output>
+                            </div>
+                        </div>
+                    </section>
+            
+                    <section class="form-section">
+                        <div class="form-group terms-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="terms" required>
+                                I agree to the <a href="terms_andco.html" target="_blank" rel="noopener noreferrer">Terms and Conditions</a>
+                            </label>
+                        </div>
+            
                         <button type="submit" class="cta-btn">Sign Up</button>
-                    </form>
-                </div>
+                    </section>
+                </form>
+            </div>
+            
+           
+            </form>
+                <!-- Investor Sign Up Form -->
+<div id="investor-signup" class="signup-form" style="display: none;">
+    <h2>Investor Sign Up</h2>
+    <form id="investor-signup-form" onsubmit="handleSignup(event, 'investor')" enctype="multipart/form-data">
+
+        <section class="form-section">
+            <h3>Basic Information</h3>
+            
+            <div class="form-group">
+                <label for="investor-name">Full Name</label>
+                <input type="text" id="investor-name" name="name" maxlength="100" required>
+            </div>
+
+            <div class="form-group">
+                <label for="investor-email">Email</label>
+                <input type="email" id="investor-email" name="email" maxlength="255" required>
+            </div>
+
+            <div class="form-group">
+                <label for="investor-password">Password</label>
+                <input type="password" id="investor-password" name="password" 
+                    minlength="8" 
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="investor-confirm-password">Confirm Password</label>
+                <input type="password" id="investor-confirm-password" name="cpassword" 
+                    minlength="8" 
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                    required>
             </div>
         </section>
+
+        <section class="form-section">
+            <h3>Company/Organization Information</h3>
+            
+            <div class="form-group">
+                <label for="company-name">Company Name</label>
+                <input type="text" id="company-name" name="compname" maxlength="100" required>
+            </div>
+
+            <div class="form-group">
+                <label for="website">Website</label>
+                <input type="url" id="website" name="site" 
+                    pattern="https?://.+"
+                    title="Include http:// or https:// in your URL"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="investor-profile-pic">Profile Picture</label>
+                <input type="file" id="investor-profile-pic" name="profile_picture" 
+                    accept="image/png, image/jpeg, image/jpg"
+                    aria-describedby="investor-pic-help">
+                <small id="investor-pic-help" class="form-text">Maximum file size: 5MB. Accepted formats: PNG, JPEG, JPG</small>
+            </div>
+        </section>
+
+        <section class="form-section">
+            <h3>Experience and Background</h3>
+
+            <div class="form-group">
+                <label for="experience-years">Years of Investing Experience</label>
+                <input type="number" id="experience-years" name="years" 
+                    min="0" max="100" required>
+            </div>
+
+            <div class="form-group">
+                <label for="portfolio">Portfolio Companies</label>
+                <textarea id="portfolio" name="companies" 
+                    rows="4" maxlength="500"
+                    placeholder="List your portfolio companies"
+                    aria-describedby="portfolio-help" required></textarea>
+                <small id="portfolio-help" class="form-text">List the companies you've invested in, separated by commas</small>
+            </div>
+
+            <div class="form-group terms-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="terms" required>
+                    I agree to the <a href="terms_andco.html" target="_blank" rel="noopener noreferrer">Terms and Conditions</a>
+                </label>
+            </div>
+
+            <button type="submit" class="cta-btn">Sign Up</button>
+        </section>
+    </form>
+</div>
+
+<!-- Mentor Sign Up Form -->
+<div id="mentor-signup" class="signup-form" style="display: none;">
+    <h2>Mentor Sign Up</h2>
+    <form id="mentor-signup-form" onsubmit="handleSignup(event, 'mentor')" enctype="multipart/form-data">
+        <section class="form-section">
+            <h3>Basic Information</h3>
+            <div class="form-group">
+                <label for="mentor-name">Full Name</label>
+                <input type="text" id="mentor-name" name="name" maxlength="100" required>
+            </div>
+
+            <div class="form-group">
+                <label for="mentor-email">Email</label>
+                <input type="email" id="mentor-email" name="email" maxlength="255" required>
+            </div>
+
+            <div class="form-group">
+                <label for="mentor-password">Password</label>
+                <input type="password" id="mentor-password" name="password" 
+                    minlength="8" 
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="mentor-confirm-password">Confirm Password</label>
+                <input type="password" id="mentor-confirm-password" name="cpassword" 
+                    minlength="8" 
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="mentor-profile-pic">Profile Picture</label>
+                <input type="file" id="mentor-profile-pic" name="profile_picture" 
+                    accept="image/png, image/jpeg, image/jpg"
+                    aria-describedby="mentor-pic-help">
+                <small id="mentor-pic-help" class="form-text">Maximum file size: 5MB. Accepted formats: PNG, JPEG, JPG</small>
+            </div>
+        </section>
+
+        <section class="form-section">
+            <h3>Professional Details</h3>
+
+            <div class="form-group">
+                <label for="mentor-company">Company Name</label>
+                <input type="text" id="mentor-company" name="company_name" maxlength="100" required>
+            </div>
+
+            <div class="form-group">
+                <label for="position">Current Position</label>
+                <input type="text" id="position" name="position" maxlength="100" required>
+            </div>
+
+            <div class="form-group">
+                <label for="linkedin">LinkedIn Profile</label>
+                <input type="url" id="linkedin" name="linkedin" 
+                    pattern="https?://(www\.)?linkedin\.com/.*"
+                    title="Please enter a valid LinkedIn URL"
+                    required>
+            </div>
+        </section>
+
+        <section class="form-section">
+            <h3>Area of Expertise</h3>
+
+            <div class="form-group">
+                <label for="expertise">Functional Expertise</label>
+                <input type="text" id="expertise" name="expertise" 
+                    maxlength="200"
+                    placeholder="e.g., Marketing, Finance, Technology" required>
+            </div>
+
+            <div class="form-group">
+                <label for="mentorship-experience">Mentorship Experience</label>
+                <textarea id="mentorship-experience" name="experience" 
+                    rows="4" maxlength="500"
+                    placeholder="Describe your previous mentorship experience"
+                    required></textarea>
+            </div>
+        </section>
+
+        <section class="form-section">
+            <h3>Mentorship Preference</h3>
+
+            <div class="form-group">
+                <label for="availability">Availability</label>
+                <textarea id="availability" name="availability" 
+                    rows="3" maxlength="300"
+                    placeholder="Describe your availability (hours per week, preferred times)"
+                    required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="preferred-stage">Preferred Stage of Startup</label>
+                <select id="preferred-stage" name="preferred_stage" required>
+                    <option value="">-- Select Preferred Stage --</option>
+                    <option value="Idea">Idea Stage</option>
+                    <option value="Pre-Seed">Pre-Seed</option>
+                    <option value="Seed">Seed Stage</option>
+                    <option value="Early">Early Stage (Series A)</option>
+                    <option value="Growth">Growth Stage (Series B+)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="mentorship-format">Mentorship Format</label>
+                <select id="mentorship-format" name="mentorship" required>
+                    <option value="">-- Select Mentorship Format --</option>
+                    <option value="oneonone">One-on-one (Virtual)</option>
+                    <option value="group">Group (Virtual)</option>
+                    <option value="public">Speaking at Events</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="mentor-location">Preferred Location</label>
+                <input type="text" id="mentor-location" name="location" required>
+            </div>
+
+            <div class="form-group terms-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="terms" required>
+                    I agree to the <a href="terms_andco.html" target="_blank" rel="noopener noreferrer">Terms and Conditions</a>
+                </label>
+            </div>
+
+            <button type="submit" class="cta-btn">Sign Up</button>
+        </section>
+    </form>
+</div>
     </main>
     
     <footer>

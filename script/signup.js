@@ -37,6 +37,7 @@ function closeTermsModal() {
 
 
 // Function to display the value of the range slider dynamically
+
 document.getElementById('funding_amount').addEventListener('input', function() {
     document.getElementById('amountOutput').value = this.value;
 });
