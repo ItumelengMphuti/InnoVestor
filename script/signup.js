@@ -19,14 +19,15 @@ document.getElementById('startup-signup-form').addEventListener('submit', functi
     }
   
     // Validate profile picture (only allow image formats)
-    const profilePic = document.getElementById('profile-pic').files[0];
+    const profilePic = document.getElementById('profile_picture').files[0];
     const allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
     if (profilePic && !allowedImageTypes.includes(profilePic.type)) {
         alert('Please upload a valid image for the profile picture (JPEG, PNG, or GIF).');
         event.preventDefault(); // Stop form submission
     }
 });
-//checkbox 
+
+// Functions to open and close the Terms modal
 function openTermsModal() {
     document.getElementById('terms-modal').style.display = 'block';
 }
@@ -35,9 +36,7 @@ function closeTermsModal() {
     document.getElementById('terms-modal').style.display = 'none';
 }
 
-
-// Function to display the value of the range slider dynamically
-
+// Function to display the range slider value dynamically
 document.getElementById('funding_amount').addEventListener('input', function() {
     document.getElementById('amountOutput').value = this.value;
 });
@@ -57,50 +56,37 @@ function showSignupForm(userType) {
     }
 }
 
-// Function to display the appropriate signup form
-function showSignupForm(userType) {
-    // Hide all signup forms
-    document.getElementById('mentor-signup').style.display = 'none';
-    document.getElementById('investor-signup').style.display = 'none';
-    document.getElementById('startup-signup').style.display = 'none';
-
-    // Show the selected signup form
-    document.getElementById(`${userType}-signup`).style.display = 'block';
-}
-
 // Function to handle signup
 async function handleSignup(event, userType) {
     event.preventDefault();  // Prevent the default form submission
 
     // Get form data based on the user type
-    const name = document.getElementById(`${userType}Name`).value;
-    const email = document.getElementById(`${userType}Email`).value;
-    const password = document.getElementById(`${userType}Password`).value;
+    const name = document.getElementById(`${userType}-name`).value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
     try {
         // Send signup request to the server
-        const response = await fetch(`/signup_${userType}`, {
+        const response = await fetch(`/api/signup_${userType}`, { // assuming `userType` = "startup"
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ name, email, password })
+            body: JSON.stringify({ name, founder_name, email, password, profile_picture })
         });
+        
 
         // Check if the signup was successful
         if (response.ok) {
-            const data = await response.json();
-            console.log("Sign Up successful");
+            console.log('Sign Up successful');
             // Redirect to the appropriate dashboard after successful signup
             window.location.href = `/${userType}_dashboard`;
         } else {
-            // Handle error (e.g., show an error message)
             alert('Signup failed. Please try again.');
-            console.log("SignUp failed")
+            console.log('SignUp failed');
         }
     } catch (error) {
         console.error('Error signing up:', error);
         alert('An error occurred. Please try again later.');
     }
 }
-
