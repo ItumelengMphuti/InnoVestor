@@ -24,19 +24,16 @@
             </div>
         </nav>
     </header>
-
     <main>
         <section id="signup">
             <div class="signup-container">
                 <h1>Sign Up for InnoVestor Connect</h1>
                 <p>Select your user type to sign up:</p>
-
                 <div class="signup-options">
                     <button class="signup-option-btn" onclick="showSignupForm('startup')">Startup Sign Up</button>
                     <button class="signup-option-btn" onclick="showSignupForm('mentor')">Mentor Sign Up</button>
                     <button class="signup-option-btn" onclick="showSignupForm('investor')">Investor Sign Up</button>
                 </div>
-
             <!-- Startup Sign Up Form -->
             <div id="startup-signup" class="signup-form" style="display: none;">
                 <h2>Startup Sign Up</h2>
@@ -49,17 +46,14 @@
                             <label for="startup-name">Startup Name</label>
                             <input type="text" id="startup-name" name="name" maxlength="100" required>
                         </div>
-            
                         <div class="form-group">
                             <label for="founder-name">Founder(s)</label>
                             <input type="text" id="founder_name" name="foundername" maxlength="200" required>
                         </div>
-            
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" id="email" name="email" maxlength="255" required>
                         </div>
-            
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input type="password" id="password" name="password" 
@@ -68,7 +62,6 @@
                                 title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
                                 required>
                         </div>
-            
                         <div class="form-group">
                             <label for="confirm-password">Confirm Password</label>
                             <input type="password" id="confirm-password" name="cpassword" 
@@ -76,7 +69,6 @@
                                 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                                 required>
                         </div>
-            
                         <div class="form-group">
                             <label for="profile-pic">Profile Picture</label>
                             <input type="file" id="profile_picture" name="profile_picture" 
@@ -85,10 +77,8 @@
                             <small id="profile-pic-help" class="form-text">Maximum file size: 5MB. Accepted formats: PNG, JPEG, JPG</small>
                         </div>
                     </section>
-    
                     <section class="form-section">
                         <h3>Company Details</h3>
-            
                         <div class="form-group">
                             <label for="industry">Choose your industry</label>
                             <select id="industry" name="industry" required>
@@ -115,18 +105,15 @@
                                 <option value="Robotics">Robotics</option>
                             </select>
                         </div>
-            
                         <div class="form-group">
                             <label for="location">Location</label>
                             <input type="text" id="location" name="location" required>
                         </div>
-            
                         <div class="form-group">
                             <label for="datefounded">Date founded</label>
                             <input type="date" id="datefounded" name="datefounded" 
                                 max="2024-12-31" required>
                         </div>
-            
                         <div class="form-group">
                             <label for="stage">Startup stage</label>
                             <select id="stage" name="stage" required>
@@ -141,13 +128,11 @@
                                 <option value="Exit">Exit Stage</option>
                             </select>
                         </div>
-            
                         <div class="form-group">
                             <label for="employee-count">Number of employees</label>
                             <input type="number" id="employee-count" name="number" 
                                 min="1" max="10000" required>
                         </div>
-            
                         <div class="form-group">
                             <label for="mission">Mission Statement</label>
                             <textarea id="mission" name="mission" 
@@ -155,7 +140,6 @@
                                 aria-describedby="mission-help" required></textarea>
                             <small id="mission-help" class="form-text">Maximum 500 characters</small>
                         </div>
-            
                         <div class="form-group">
                             <label for="pitch-deck">Pitch Deck</label>
                             <input type="file" id="pitch-deck" name="pitch_deck" 
@@ -164,10 +148,8 @@
                             <small id="pitch-deck-help" class="form-text">Maximum file size: 10MB. PDF format only</small>
                         </div>
                     </section>
-
                     <section class="form-section">
                         <h3>Financial Information</h3>
-            
                         <div class="form-group">
                             <label for="financial_stage">Financial Stage</label>
                             <select id="financial_stage" name="financial_stage" required>
@@ -179,7 +161,6 @@
                                 <option value="Scaling">Scaling</option>
                             </select>
                         </div>
-            
                         <div class="form-group">
                             <label for="funding_amount">Amount of Funding Sought (ZAR)</label>
                             <div class="range-container">
@@ -203,8 +184,6 @@
                     </section>
                 </form>
             </div>
-            
-           
             </form>
                 <!-- Investor Sign Up Form -->
 <div id="investor-signup" class="signup-form" style="display: none;">
@@ -307,12 +286,10 @@
                 <label for="mentor-name">Full Name</label>
                 <input type="text" id="mentor-name" name="name" maxlength="100" required>
             </div>
-
             <div class="form-group">
                 <label for="mentor-email">Email</label>
                 <input type="email" id="mentor-email" name="email" maxlength="255" required>
             </div>
-
             <div class="form-group">
                 <label for="mentor-password">Password</label>
                 <input type="password" id="mentor-password" name="password" 
@@ -321,7 +298,6 @@
                     title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
                     required>
             </div>
-
             <div class="form-group">
                 <label for="mentor-confirm-password">Confirm Password</label>
                 <input type="password" id="mentor-confirm-password" name="cpassword" 
@@ -329,7 +305,6 @@
                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                     required>
             </div>
-
             <div class="form-group">
                 <label for="mentor-profile-pic">Profile Picture</label>
                 <input type="file" id="mentor-profile-pic" name="profile_picture" 
@@ -338,20 +313,16 @@
                 <small id="mentor-pic-help" class="form-text">Maximum file size: 5MB. Accepted formats: PNG, JPEG, JPG</small>
             </div>
         </section>
-
         <section class="form-section">
             <h3>Professional Details</h3>
-
             <div class="form-group">
                 <label for="mentor-company">Company Name</label>
                 <input type="text" id="mentor-company" name="company_name" maxlength="100" required>
             </div>
-
             <div class="form-group">
                 <label for="position">Current Position</label>
                 <input type="text" id="position" name="position" maxlength="100" required>
             </div>
-
             <div class="form-group">
                 <label for="linkedin">LinkedIn Profile</label>
                 <input type="url" id="linkedin" name="linkedin" 
@@ -360,17 +331,14 @@
                     required>
             </div>
         </section>
-
         <section class="form-section">
             <h3>Area of Expertise</h3>
-
             <div class="form-group">
                 <label for="expertise">Functional Expertise</label>
                 <input type="text" id="expertise" name="expertise" 
                     maxlength="200"
                     placeholder="e.g., Marketing, Finance, Technology" required>
             </div>
-
             <div class="form-group">
                 <label for="mentorship-experience">Mentorship Experience</label>
                 <textarea id="mentorship-experience" name="experience" 
@@ -379,7 +347,6 @@
                     required></textarea>
             </div>
         </section>
-
         <section class="form-section">
             <h3>Mentorship Preference</h3>
 
@@ -390,7 +357,6 @@
                     placeholder="Describe your availability (hours per week, preferred times)"
                     required></textarea>
             </div>
-
             <div class="form-group">
                 <label for="preferred-stage">Preferred Stage of Startup</label>
                 <select id="preferred-stage" name="preferred_stage" required>
@@ -402,7 +368,6 @@
                     <option value="Growth">Growth Stage (Series B+)</option>
                 </select>
             </div>
-
             <div class="form-group">
                 <label for="mentorship-format">Mentorship Format</label>
                 <select id="mentorship-format" name="mentorship" required>
@@ -412,19 +377,16 @@
                     <option value="public">Speaking at Events</option>
                 </select>
             </div>
-
             <div class="form-group">
                 <label for="mentor-location">Preferred Location</label>
                 <input type="text" id="mentor-location" name="location" required>
             </div>
-
             <div class="form-group terms-group">
                 <label class="checkbox-label">
                     <input type="checkbox" name="terms" required>
                     I agree to the <a href="terms_andco.html" target="_blank" rel="noopener noreferrer">Terms and Conditions</a>
                 </label>
             </div>
-
             <button type="submit" class="cta-btn">Sign Up</button>
         </section>
     </form>
@@ -437,6 +399,6 @@
     </footer>
 
 <script src="script/signup.js"></script>
-
+<script src="script/startups.js"></script>
 </body>
 </html>
