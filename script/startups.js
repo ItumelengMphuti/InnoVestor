@@ -2,61 +2,54 @@ document.getElementById('startup-signup-form').addEventListener('submit', async 
     event.preventDefault();
 
     // Retrieve form fields
-    const name = document.getElementById('startup-name').value;
-    const founderName = document.getElementById('founder_name').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirm-password').value;
-    const profilePicture = document.getElementById('profile_picture').files[0];
-    const industry = document.getElementById('industry').value;
-    const location = document.getElementById('location').value;
-    const dateFounded = document.getElementById('datefounded').value;
-    const stage = document.getElementById('stage').value;
-    const employeeCount = document.getElementById('employee-count').value;
-    const mission = document.getElementById('mission').value;
-    const pitchDeck = document.getElementById('pitch-deck').files[0];
-    const financialStage = document.getElementById('financial_stage').value;
-    const fundingAmount = document.getElementById('funding_amount').value;
+    const fields = {
+        name: document.getElementById('startup-name').value,
+        founder_name: document.getElementById('founder_name').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value,
+        confirmPassword: document.getElementById('confirm-password').value,
+        profile_picture: document.getElementById('profile_picture').files[0],
+        industry: document.getElementById('industry').value,
+        location: document.getElementById('location').value,
+        date_founded: document.getElementById('datefounded').value,
+        stage: document.getElementById('stage').value,
+        number_of_employees: document.getElementById('employee-count').value,
+        mission: document.getElementById('mission').value,
+        pitch_deck: document.getElementById('pitch-deck').files[0],
+        financial_stage: document.getElementById('financial_stage').value,
+        funding_amount: document.getElementById('funding_amount').value,
+    };
 
     // Validate password match
-    if (password !== confirmPassword) {
+    if (fields.password !== fields.confirmPassword) {
         alert('Passwords do not match!');
         return;
     }
 
     // Validate profile picture
     const allowedImageTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-    if (profilePicture && !allowedImageTypes.includes(profilePicture.type)) {
+    if (fields.profile_picture && !allowedImageTypes.includes(fields.profile_picture.type)) {
         alert('Please upload a valid image for the profile picture (JPEG, PNG, or JPG).');
         return;
     }
 
     // Validate pitch deck
-    if (pitchDeck && pitchDeck.type !== 'application/pdf') {
+    if (fields.pitch_deck && fields.pitch_deck.type !== 'application/pdf') {
         alert('Please upload a valid PDF file for the pitch deck.');
         return;
     }
 
     // Prepare form data for submission
     const formData = new FormData();
-    formData.append('name', name);
-    formData.append('founder_name', founderName);
-    formData.append('email', email);
-    formData.append('password', password);
-    formData.append('profile_picture', profilePicture);
-    formData.append('industry', industry);
-    formData.append('location', location);
-    formData.append('date_founded', dateFounded);
-    formData.append('stage', stage);
-    formData.append('number_of_employees', employeeCount);
-    formData.append('mission', mission);
-    formData.append('pitch_deck', pitchDeck);
-    formData.append('financial_stage', financialStage);
-    formData.append('funding_amount', fundingAmount);
+    for (const key in fields) {
+        if (fields[key]) {
+            formData.append(key, fields[key]);
+        }
+    }
 
     try {
         // Send signup request to the server
-        const response = await fetch('/startups', {
+        const response = await fetch('http://localhost:3000/startups', {
             method: 'POST',
             body: formData
         });
@@ -72,7 +65,8 @@ document.getElementById('startup-signup-form').addEventListener('submit', async 
             // Redirect to the startup dashboard after successful signup
             window.location.href = '/startup_dashboard';
         } else {
-            alert('Signup failed. Please try again.');
+            alert(`Signup failed. Status: ${response.status} ${response.statusText}`);
+            console.error('Server response:', await response.text());
         }
     } catch (error) {
         console.error('Error signing up:', error);
