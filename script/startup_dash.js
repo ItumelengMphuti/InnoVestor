@@ -1,8 +1,15 @@
 document.addEventListener('DOMContentLoaded', function () {
     const profileInfo = document.getElementById('profile-info');
     
-    // Retrieve the saved profile data from localStorage
-    const profileData = JSON.parse(localStorage.getItem('startupProfile'));
+    // Attempt to retrieve and parse the profile data from localStorage
+    let profileData;
+    try {
+        profileData = JSON.parse(localStorage.getItem('startupProfile'));
+    } catch (error) {
+        console.error('Error parsing profile data:', error);
+        profileInfo.innerHTML = '<p>Error loading profile data. Please try signing up again.</p>';
+        return;
+    }
 
     if (profileData) {
         // Display profile data
@@ -23,3 +30,4 @@ document.addEventListener('DOMContentLoaded', function () {
         profileInfo.innerHTML = '<p>No profile data available. Please sign up first.</p>';
     }
 });
+
