@@ -171,6 +171,22 @@ app.post('/investor-signup', upload.single('profile_picture'), async (req, res) 
     }
 });
 
+// Get request for startup signup
+app.get('/startups', async (req, res) => {
+    try {
+        const query = 'SELECT * FROM startups ORDER BY id DESC LIMIT 1'; // Adjust based on your primary key
+        connection.query(query, (error, results) => {
+            if (error) {
+                console.error('Error retrieving data from the database:', error);
+                return res.status(500).json({ message: 'Database error.' });
+            }
+            res.status(200).json(results[0]); // Assuming results has at least one entry
+        });
+    } catch (error) {
+        console.error('Error in GET /startup-data:', error);
+        res.status(500).json({ message: 'Internal server error.' });
+    }
+});
 
 
 
