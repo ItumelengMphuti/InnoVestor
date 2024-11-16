@@ -70,42 +70,106 @@ const upload = multer({
 // Route for handling startup signup
 app.post('/startups', upload.fields([{ name: 'profile_picture' }, { name: 'pitch_deck' }]), async (req, res) => {
     try {
-        const { name, foundername, email, password, cpassword, industry, location, datefounded, stage, employee_count, mission, financial_stage, funding_amount } = req.body;
+        // Log the incoming request body and files for debugging
+        console.log('Request body (raw):', req.body);
+        console.log('Request body (as JSON):', JSON.parse(JSON.stringify(req.body))); // Cleaner log
+        console.log('Request files:', req.files);
+
+        // Adjust field names to match client request
+        const { 
+            startup_name: name, 
+            founder_name: foundername, 
+            email, 
+            password, 
+            confirm_password: cpassword, 
+            industry, 
+            location, 
+            datefounded, 
+            stage, 
+            employee_count, 
+            mission, 
+            financial_stage, 
+            funding_amount 
+        } = req.body;
+
+        // Log destructured fields for debugging
+        console.log('Destructured form fields:');
+        console.log('Name:', name);
+        console.log('Founder Name:', foundername);
+        console.log('Email:', email);
+        console.log('Password:', password);
+        console.log('Confirm Password:', cpassword);
+        console.log('Industry:', industry);
+        console.log('Location:', location);
+        console.log('Date Founded:', datefounded);
+        console.log('Stage:', stage);
+        console.log('Employee Count:', employee_count);
+        console.log('Mission:', mission);
+        console.log('Financial Stage:', financial_stage);
+        console.log('Funding Amount:', funding_amount);
 
         // Validate input
         if (!name || !foundername || !email || !password || !cpassword) {
+            console.error('Validation failed: Missing fields');
             return res.status(400).json({ message: 'All fields are required.' });
         }
 
         if (password !== cpassword) {
+            console.error('Validation failed: Passwords do not match');
             return res.status(400).json({ message: 'Passwords do not match.' });
         }
 
         // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Store data in the database
+        // Store file paths
         const profilePicturePath = req.files['profile_picture'] ? req.files['profile_picture'][0].path : null;
         const pitchDeckPath = req.files['pitch_deck'] ? req.files['pitch_deck'][0].path : null;
 
+        // Log file paths
+        console.log('Profile Picture Path:', profilePicturePath);
+        console.log('Pitch Deck Path:', pitchDeckPath);
+
+        // SQL query
         const query = `INSERT INTO startups (name, foundername, email, password, profile_picture, industry,
                         location, datefounded, stage, employee_count, mission,
                         pitch_deck, financial_stage, funding_amount)
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-        const values = [name, foundername, email.toLowerCase(), hashedPassword,
-                        profilePicturePath, industry, location,
-                        datefounded, stage, employee_count,
-                        mission, pitchDeckPath,
-                        financial_stage, funding_amount];
+        const values = [
+            name, 
+            foundername, 
+            email.toLowerCase(), 
+            hashedPassword, 
+            profilePicturePath, 
+            industry, 
+            location, 
+            datefounded, 
+            stage, 
+            employee_count, 
+            mission, 
+            pitchDeckPath, 
+            financial_stage, 
+            funding_amount
+        ];
 
+        // Log query and values
+        console.log('SQL Query:', query);
+        console.log('Query Values:', values);
+
+        // Execute query
         connection.query(query, values, (error) => {
             if (error) {
-                console.error('Error inserting data into the database:', error);
-                return res.status(500).json({ message: 'Database error.' });
+                console.error('Error code:', error.code);
+                console.error('Error message:', error.message);
+                console.error('SQL State:', error.sqlState);
+                console.error('Stack trace:', error.stack);
+                return res.status(500).json({ message: 'Database error.', error: error.message });
             }
+            console.log('Data successfully inserted into the database.');
             res.status(201).json({ message: 'Signup successful!' });
         });
+        
 
     } catch (error) {
         console.error('Error during signup:', error);
@@ -113,8 +177,9 @@ app.post('/startups', upload.fields([{ name: 'profile_picture' }, { name: 'pitch
     }
 });
 
+
 // Mentor Signup Route
-app.post('/mentor-signup', upload.single('profile_picture'), async (req, res) => {
+app.post('/mentor_signup', upload.single('profile_picture'), async (req, res) => {
     try {
         const { name, email, password, cpassword, company_name, position, linkedin, expertise, experience, availability, preferred_stage, mentorship, location } = req.body;
         

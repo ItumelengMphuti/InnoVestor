@@ -41,7 +41,7 @@ document.querySelector('#mentor-signup-form').addEventListener('submit', async f
 
     // Send the data to the backend
     try {
-        const response = await fetch('/mentor-signup', {
+        const response = await fetch('/mentor_signup', {
             method: 'POST',
             body: formData
         });
@@ -49,7 +49,7 @@ document.querySelector('#mentor-signup-form').addEventListener('submit', async f
         const result = await response.json();
         if (response.ok) {
             alert(result.message);
-            window.location.href = '/mentor-dashboard'; // Redirect after successful signup
+            window.location.href = '/mentor_dashboard.html'; // Redirect after successful signup
         } else {
             alert(result.error || 'Error occurred during signup');
         }
