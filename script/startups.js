@@ -74,3 +74,4 @@ form.addEventListener('submit', async (event) => {
         alert('Signup failed. Please try again later.');
     }
 });
+   
