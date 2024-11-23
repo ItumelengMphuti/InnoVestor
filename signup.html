@@ -188,12 +188,12 @@
             <!-- Mentor Sign Up Form -->
 <div id="mentor-signup" class="signup-form" style="display: none;">
     <h2>Mentor Sign Up</h2>
-    <form id="mentor-signup-form" onsubmit="handleSignup(event, 'mentor')" enctype="multipart/form-data">
+    <form id="mentor-signup-form" enctype="multipart/form-data">
         <section class="form-section">
             <h3>Basic Information</h3>
             <div class="form-group">
                 <label for="mentor-name">Full Name</label>
-                <input type="text" id="mentor-name" name="name" maxlength="100" required>
+                <input type="text" id="mentor-name" name="mentor_name" maxlength="100" required>
             </div>
             <div class="form-group">
                 <label for="mentor-email">Email</label>
@@ -303,7 +303,7 @@
                 <!-- Investor Sign Up Form -->
 <div id="investor-signup" class="signup-form" style="display: none;">
     <h2>Investor Sign Up</h2>
-    <form id="investor-signup-form" onsubmit="handleSignup(event, 'investor')" enctype="multipart/form-data">
+    <form id="investor-signup-form" enctype="multipart/form-data">
 
         <section class="form-section">
             <h3>Basic Information</h3>
@@ -400,9 +400,5 @@
     </footer>
 
 <script src="script/signup.js"></script>
-<script src="script/startups.js"></script>
-<script src="script/investor.js"></script>
-<script src="script/mentors.js"></script>
-
 </body>
 </html>

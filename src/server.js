@@ -77,11 +77,11 @@ app.post('/startups', upload.fields([{ name: 'profile_picture' }, { name: 'pitch
 
         // Adjust field names to match client request
         const { 
-            startup_name: name, 
-            founder_name: foundername, 
+            name, 
+            foundername, 
             email, 
             password, 
-            confirm_password: cpassword, 
+            cpassword, 
             industry, 
             location, 
             datefounded, 
@@ -177,32 +177,80 @@ app.post('/startups', upload.fields([{ name: 'profile_picture' }, { name: 'pitch
     }
 });
 
-
-// Mentor Signup Route
-app.post('/mentor_signup', upload.single('profile_picture'), async (req, res) => {
+app.post('/mentors', upload.single('profile_picture'), async (req, res) => {
     try {
-        const { name, email, password, cpassword, company_name, position, linkedin, expertise, experience, availability, preferred_stage, mentorship, location } = req.body;
-        
-        if (password !== cpassword) return res.status(400).json({ error: "Passwords do not match" });
-        
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const profilePicturePath = req.file ? req.file.path : null;
+        // Extract form fields from request body
+        const {
+            mentor_name,
+            email,
+            password,
+            company_name,
+            position,
+            linkedin,
+            expertise,
+            experience,
+            availability,
+            preferred_stage,
+            mentorship,
+            location
+        } = req.body;
 
-        const sql = `INSERT INTO mentors (name, email, password, company_name, position, linkedin, expertise, experience, availability, preferred_stage, mentorship, location, profile_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-        const values = [name, email, hashedPassword, company_name, position, linkedin, expertise, experience, availability, preferred_stage, mentorship, location, profilePicturePath];
-        
-        connection.query(sql, values, (err, result) => {  // Use `connection.query` here
-            if (err) return res.status(500).json({ error: err.message });
-            res.status(201).json({ message: 'Mentor registered successfully!' });
+        // Validate input
+        if (!mentor_name || !email || !password || !company_name) {
+            console.error('Validation failed: Missing required fields');
+            return res.status(400).json({ message: 'All required fields must be filled.' });
+        }
+
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Store file path for profile picture
+        const profilePicturePath = req.file ? req.file.path : null;
+        console.log('Profile Picture Path:', profilePicturePath);
+
+        // SQL query to insert data into the mentors table
+        const query = `
+            INSERT INTO mentors (
+                mentor_name, email, password, company_name, position, linkedin, expertise, 
+                experience, availability, preferred_stage, mentorship, location, profile_picture
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `;
+
+        const values = [
+            mentor_name,
+            email.toLowerCase(),
+            hashedPassword,
+            company_name,
+            position,
+            linkedin,
+            expertise,
+            experience,
+            availability,
+            preferred_stage,
+            mentorship,
+            location,
+            profilePicturePath
+        ];
+
+        // Execute the query
+        connection.query(query, values, (error) => {
+            if (error) {
+                console.error('Database error:', error);
+                return res.status(500).json({ message: 'Database error.', error: error.message });
+            }
+            console.log('Mentor data successfully inserted into the database.');
+            res.status(201).json({ message: 'Mentor signup successful!' });
         });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error('Error during mentor signup:', error);
+        res.status(500).json({ message: 'Internal server error.' });
     }
 });
 
 
 // Investore signup route
-app.post('/investor-signup', upload.single('profile_picture'), async (req, res) => {
+app.post('/investors', upload.single('profile_picture'), async (req, res) => {
     try {
         const { name, email, password, cpassword, compname, site, years, companies } = req.body;
 
@@ -239,7 +287,7 @@ app.post('/investor-signup', upload.single('profile_picture'), async (req, res) 
 // Get request for startup signup
 app.get('/startups', async (req, res) => {
     try {
-        const query = 'SELECT * FROM startups ORDER BY id DESC LIMIT 1'; // Adjust based on your primary key
+        const query = 'SELECT * FROM mentors'; // Adjust based on your primary key
         connection.query(query, (error, results) => {
             if (error) {
                 console.error('Error retrieving data from the database:', error);
@@ -253,6 +301,45 @@ app.get('/startups', async (req, res) => {
     }
 });
 
+app.get('/mentors', async (req, res) => {
+    try {
+        const query = 'SELECT * FROM mentors'; // Adjust 'id' if necessary
+        connection.query(query, (error, results) => {
+            if (error) {
+                console.error('Error retrieving data from the mentors table:', error);
+                return res.status(500).json({ message: 'Database error.' });
+            }
+            if (results.length > 0) {
+                res.status(200).json(results[0]); // Return the latest mentor
+            } else {
+                res.status(404).json({ message: 'No mentors found.' });
+            }
+        });
+    } catch (error) {
+        console.error('Error in GET /mentors:', error);
+        res.status(500).json({ message: 'Internal server error.' });
+    }
+});
+
+app.get('/investors', async (req, res) => {
+    try {
+        const query = 'SELECT * FROM mentors'; // Adjust 'id' if necessary
+        connection.query(query, (error, results) => {
+            if (error) {
+                console.error('Error retrieving data from the investors table:', error);
+                return res.status(500).json({ message: 'Database error.' });
+            }
+            if (results.length > 0) {
+                res.status(200).json(results[0]); // Return the latest investor
+            } else {
+                res.status(404).json({ message: 'No investors found.' });
+            }
+        });
+    } catch (error) {
+        console.error('Error in GET /investors:', error);
+        res.status(500).json({ message: 'Internal server error.' });
+    }
+});
 
 
 // Start the server
